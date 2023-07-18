@@ -19,11 +19,24 @@ module.exports = {
         compress: true,
         historyApiFallback: true
     },
+    devtool:source-map,
     module: {
         rules: [
             {
                 test: /\.scss$/,
                 use:["style-loader", "css-loader", "sass-loader"  ]
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                   loader: 'babel-loader',
+                   options: ["@babel/preset-env"]
+                }
+            },
+            {
+                test: /\.(png | jpg | jpeg| svg)$/i,
+                type: "asset/resource"
             }
         ]
     },
