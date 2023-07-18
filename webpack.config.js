@@ -6,7 +6,8 @@ module.exports = {
     entry: path.resolve(__dirname, "src/index.js"),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: '[name].[contenthash].js',
+        clean:true
     },
     module: {
         rules: [
@@ -22,6 +23,19 @@ module.exports = {
             filename: 'index.html',
             template: "src/template.html"
         })
-    ]
+    ],
+    optimization:{
+        runtimeChunk: "single",
+        moduleIds: 'deterministic',
+        splitChunks: {
+            cacheGroups: {
+              vendor: {
+                test: /[\\/]node_modules[\\/]/,
+                name: 'vendors',
+                chunks: 'all',
+              },
+            },
+          },
+    }
  
 }
