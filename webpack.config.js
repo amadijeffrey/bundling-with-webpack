@@ -1,5 +1,5 @@
 const path = require('path')
-const  HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     mode: "development",
@@ -7,10 +7,10 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[contenthash].js',
-        clean:true
+        clean: true
     },
     devServer: {
-        static:{
+        static: {
             directory: path.resolve(__dirname, "dist/index.html")
         },
         open: true,
@@ -19,19 +19,21 @@ module.exports = {
         compress: true,
         historyApiFallback: true
     },
-    devtool:source-map,
+    devtool: 'source-map',
     module: {
         rules: [
             {
                 test: /\.scss$/,
-                use:["style-loader", "css-loader", "sass-loader"  ]
+                use: ["style-loader", "css-loader", "sass-loader"]
             },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                   loader: 'babel-loader',
-                   options: ["@babel/preset-env"]
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ["@babel/preset-env"]
+                    }
                 }
             },
             {
@@ -47,18 +49,18 @@ module.exports = {
             template: "src/template.html"
         })
     ],
-    optimization:{
+    optimization: {
         runtimeChunk: "single",
         moduleIds: 'deterministic',
         splitChunks: {
             cacheGroups: {
-              vendor: {
-                test: /[\\/]node_modules[\\/]/,
-                name: 'vendors',
-                chunks: 'all',
-              },
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
             },
-          },
+        },
     }
- 
+
 }
